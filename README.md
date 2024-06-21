@@ -24,7 +24,7 @@ $$K := \lim_{\Delta t \to 0} \lim_{ε \to 0} \lim_{N \to \infty} \cfrac{1}{\Delt
 &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;In the absence of noise, non-chaotic systems exhibit zero KS entropy while chaotic systems generate positive values. For signals containing noise, KS entropy diverges to infinity as ε approaches zero, regardless of the amount of noise present. In practical applications, a sufficiently large ε is chosen in order to minimize the effect of noise and keep the value finite.
 
 ## Python Script Overview
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;The python function 'marginal_redundancies_calculation' takes in a time series array with the specified parameters (max_dim, max_lag, bins) and outputs a plot with marginal redundancy on the y-axis and time lag on the x-axis. It plots a separate curve for each embedding dimension starting from $m=2$ up to 'max_dim' while iterating each one from $\tau=1$ to 'max_lag'. 
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;The python function 'marginal_redundancies_calculation' takes in a time series array with the specified parameters (max_dim, max_lag, bins) and outputs a plot with marginal redundancy on the y-axis and time lag on the x-axis. It plots a separate curve for each embedding dimension starting from $m=2$ up to 'max_dim' over the time lags $\tau=1$ to 'max_lag'. 
 
 &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;An example is shown below for the Lorenz system using 1,000,000 data points. The parameters and time series generation function are included in example.py. The computation time is approximately 30 seconds on an Intel® Core™ i7-1255U at base clock speed.
 
@@ -35,7 +35,7 @@ $$K := \lim_{\Delta t \to 0} \lim_{ε \to 0} \lim_{N \to \infty} \cfrac{1}{\Delt
 
 $$\Delta \mathcal{R}_ {m}(\tau) = c - K\tau$$
 
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;The negative of the slope of this asymptote line is KS entropy of the system. 
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;The negative of the slope of this asymptote line is the KS entropy of the system. 
 
 ## Installation & Packages
 
