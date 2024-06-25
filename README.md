@@ -6,7 +6,7 @@
 ### Marginal Redundancy
 &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;To begin, it is crucial to understand the concept of redundancy for a collection of time series. Redundancy $\mathcal{R}$ is the extension of mutual information for 3 or more random variables. It quantifies the amount of information that is shared among the variables. In the case of this analysis, the variables are the time series $X_t$ and its lagged counterparts with time increments of $\tau$ ($X_{t+\tau}, X_{t+2\tau}, ...$). Redundancy is defined as the following, where $H(X)$ is the Shannon entropy of time series $X$ with partitions $x_1, x_2,..., x_n$:
 
-$$\mathcal{R}_ {m} = \mathcal{R}(X_{t}, X_{t+\tau}, ..., X_{t+(m-1)\tau}) = \left[\sum_{i=0}^{m-1} H(X_{t+i\tau})\right] - H(X_{t}, X_{t+\tau}, ..., X_{t+(m-1)\tau}),$$
+$$\mathcal{R}_ {m}(\tau) = \mathcal{R}(X_{t}, X_{t+\tau}, ..., X_{t+(m-1)\tau}) = \left[\sum_{i=0}^{m-1} H(X_{t+i\tau})\right] - H(X_{t}, X_{t+\tau}, ..., X_{t+(m-1)\tau}),$$
 
 $$H(X) = -\sum_{i=1}^{n} P(x_i) \log_2 P(x_i)$$
 
@@ -17,9 +17,9 @@ $$H(X) = -\sum_{i=1}^{n} P(x_i) \log_2 P(x_i)$$
 
 $$H_{m} = H(X_{t}, X_{t+1}, ..., X_{t+(m-1)})$$
 
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; $H_{m} - H_{m-1}$ then denotes the increase in entropy as the lengths of the sequences increase from $m-1$ to $m$. Physically, it represents the average amount of information needed to predict the state of the system given knowledge of the previous $m-1$ measurements. KS entropy is defined as the limit of this value, standardized for step size $\Delta t$, as number of data points $N$ approaches infinity and both ε and $\Delta t$ approach zero:
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; $H_{m} - H_{m-1}$ then denotes the increase in entropy as the lengths of the sequences increase from $m-1$ to $m$. Physically, it represents the average amount of information needed to predict the state of the system given knowledge of the previous $m-1$ measurements. KS entropy is defined as the limit of this value, standardized for step size $\Delta t$, as embedding dimension $m$ approaches infinity and both ε and $\Delta t$ approach zero:
 
-$$K := \lim_{\Delta t \to 0} \lim_{ε \to 0} \lim_{N \to \infty} \cfrac{1}{\Delta t}(H_{m} - H_{m-1})$$
+$$K := \lim_{\Delta t \to 0} \lim_{ε \to 0} \lim_{m \to \infty} \cfrac{1}{\Delta t}(H_{m} - H_{m-1})$$
 
 &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;In the absence of noise, non-chaotic systems exhibit zero KS entropy while chaotic systems generate positive values. For signals containing noise, KS entropy diverges to infinity as ε approaches zero, regardless of the amount of noise present. In practical applications, a sufficiently large ε is chosen in order to minimize the effect of noise and keep the value finite.
 
