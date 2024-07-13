@@ -30,15 +30,15 @@ def redundancy_calculation_for_embedding(vector, embedding_dim, max_lag=50, bins
     
     return redundancies
 
-def marginal_redundancies_calculation(vector, max_dim, max_lag, bins=10):
+def mr_calculation(vector, max_dim, max_lag, bins=10):
     '''
-    Compute and plot marginal redundancies against time lag for each embedding dimensions, starting from 2 and going up to max_dim
-    Additionally, return a matrix where rows correspond to embedding dimension and columns to time lag
+    Compute and plot marginal redundancies against time lag for each embedding dimension, starting from m=2 and going up to max_dim
+    Additionally, return a matrix with rows corresponding to embedding dimension and columns to time lag
     Parameters:
-        vector ((N, 1) array) - input time series
-        max_dim (int) - maximum embedding dimension starting from 1 to be used for marginal redundancy calculations; the number of graphs plotted will be max_dim - 1
+        vector ((N, 1) array) - input scalar time series
+        max_dim (int) - maximum embedding dimension to be used for marginal redundancy calculations
         max_lag (int) - maximum time delay to be plotted on the x-axis
-        bins (int) - number of equally-sized partitions taken over the range of the data for entropy calculations; default is 10
+        bins (int) - number of equally-sized bins taken over the range of the data for entropy calculations; default is 10
     '''
     
     all_redundancies = {1: [0] * max_lag}  # Redundancy for embedding dimension 1 is zero
@@ -52,6 +52,7 @@ def marginal_redundancies_calculation(vector, max_dim, max_lag, bins=10):
     for dim in range(2, max_dim + 1):
         marginal_redundancies[dim] = [current - prev for current, prev in zip(all_redundancies[dim], all_redundancies[dim - 1])]
         output_matrix.append(marginal_redundancies[dim])
+        
     # Plot
     plt.figure(figsize=(10, 6))
     for dim, values in marginal_redundancies.items():
