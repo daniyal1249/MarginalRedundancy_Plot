@@ -1,41 +1,52 @@
 # Marginal Redundancy vs Time Lag Plot
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;This repository generates a plot which displays the dependency of marginal redundancy $\Delta \mathcal{R}$ on time lag  $\tau$ for a time series. Theoretically, important statistical properties of the time series (i.e. Kolmogorov-Sinai entropy and accuracy of the measurements) can be estimated through visual inspection of the plot. This algorithm incorporates adjustable parameters for the number of partitions over the data, the max time lag, and max embedding dimension.
+
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;This repository generates a plot which displays the dependency of marginal redundancy $\Delta \mathcal{R}$ on time lag  $\tau$ for a time series. Theoretically, important statistical properties of the time series (i.e. Kolmogorov-Sinai entropy and accuracy of the measurements) can be estimated through visual inspection of the plot. This algorithm incorporates adjustable parameters for the number of bins over the data, the max time lag, and max embedding dimension.
 
 ## Terminology
 
-### Marginal Redundancy
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;To begin, it is crucial to understand the concept of redundancy for a collection of time series. Redundancy $\mathcal{R}$ is the extension of mutual information for 3 or more random variables. It quantifies the amount of information that is shared among the variables. In the case of this analysis, the variables are the time series $X_t$ and its lagged counterparts with time increments of $\tau$ ($X_{t+\tau}, X_{t+2\tau}, ...$). Redundancy is defined as the following, where $H(X)$ is the Shannon entropy of time series $X$ with partitions $x_1, x_2,..., x_n$:
+### Redundancy and Marginal Redundancy
 
-$$\mathcal{R}_ {m}(\tau) = \mathcal{R}(X_{t}, X_{t+\tau}, ..., X_{t+(m-1)\tau}) = \left[\sum_{i=0}^{m-1} H(X_{t+i\tau})\right] - H(X_{t}, X_{t+\tau}, ..., X_{t+(m-1)\tau}),$$
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Let $X_t$ be a vector time series. Assume a partition $\xi$ of the state space of $X_t$ into bins $\\{x_1, x_2, ..., x_n\\}$, where each $x_i$ represents a specific range of values $X_t$ can take. The Shannon entropy of $X_t$ over partition $\xi$ is given by:
 
-$$H(X) = -\sum_{i=1}^{n} P(x_i) \log_2 P(x_i)$$
+$$H(X_t) = -\sum_{i=1}^{n} P(x_i) \log_2 P(x_i)$$
 
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Marginal redundancy $\Delta \mathcal{R}_ {m}$ is then given by $\mathcal{R}_ {m} - \mathcal{R}_ {m-1}$ and represents the increase in redundancy as number of variables, or embedding dimension, increases from $m-1$ to $m$. It is important to note that $\mathcal{R}_ {1}$ is zero, so the marginal redundancy at $m = 2$ equals  $\mathcal{R}_ {2}$.
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;where $P(x_i)$ is the probability of the time series values falling into the bin $x_i$.
+
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Mutual information (MI) is a metric which quantifies the average amount of information observing one time series gives about another. Higher values of MI indicate a stronger dependency between the two time series while lower values suggest a higher degree of independence. This concept can be extended to quantify shared information among any number of time series, often referred to as redundancy $\mathcal{R}$.
+
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;For this analysis, consider a scalar time series $X_t$. Let $(X_{t}, X_{t+\tau}, ..., X_{t+(m-1)\tau})$ be the time delay embedding of $X_t$ in an $m$-dimensional state space with time lag $\tau$. The redundancy of this vectorized time series with respect to a partition $\xi$ is given by:
+
+$$\mathcal{R}_ {m}(\tau) = \mathcal{R}(X_{t}, X_{t+\tau}, ..., X_{t+(m-1)\tau}) = \left[\sum_{i=0}^{m-1} H(X_{t+i\tau})\right] - H(X_{t}, X_{t+\tau}, ..., X_{t+(m-1)\tau})$$
+
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Marginal redundancy $\Delta \mathcal{R}_ {m}$ is then defined as $\mathcal{R}_ {m} - \mathcal{R}_ {m-1}$ and represents the increase in redundancy as the embedding dimension increases from $m-1$ to $m$. It is important to note that $\mathcal{R}_ {1} = 0$, so the marginal redundancy at $m = 2$ equals $\mathcal{R}_ {2}$.
 
 ### Kolmogorov-Sinai Entropy
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Kolmogorov-Sinai entropy, also known as measure-theoretic entropy, metric entropy, Kolmogorov entropy, or simply KS entropy, represents the information production rate of a dynamical system. For a given bin width ε, define $H_{m}$ as the information entropy of all $m$-length sequences of consecutive measurements formed from a time series. For a time series $X_{t}$:
+
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Kolmogorov-Sinai entropy, also known as measure-theoretic entropy, metric entropy, Kolmogorov entropy, or simply KS entropy, represents the information production rate of a dynamical system. For a given partition, define $H_{m}$ as the Shannon entropy of all $m$-length sequences of consecutive measurements formed from a time series. For a time series $X_{t}$:
 
 $$H_{m} = H(X_{t}, X_{t+1}, ..., X_{t+(m-1)})$$
 
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; $H_{m} - H_{m-1}$ then denotes the increase in entropy as the lengths of the sequences increase from $m-1$ to $m$. Physically, it represents the average amount of information needed to predict the state of the system given knowledge of the previous $m-1$ measurements. KS entropy is defined as the limit of this value, standardized for step size $\Delta t$, as embedding dimension $m$ approaches infinity and both ε and $\Delta t$ approach zero:
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; $H_{m} - H_{m-1}$ then denotes the increase in entropy as the lengths of the sequences increase from $m-1$ to $m$. Physically, it represents the average amount of information needed to predict the state of the system given knowledge of the previous $m-1$ measurements. KS entropy is defined as the limit of this value, standardized for step size $\Delta t$, as the embedding dimension $m$ approaches infinity and both the bin width ε and $\Delta t$ approach zero:
 
 $$K := \lim_{\Delta t \to 0} \lim_{ε \to 0} \lim_{m \to \infty} \cfrac{1}{\Delta t}(H_{m} - H_{m-1})$$
 
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;In the absence of noise, non-chaotic systems exhibit zero KS entropy while chaotic systems generate positive values. For signals containing noise, KS entropy diverges to infinity as ε approaches zero, regardless of the amount of noise present. In practical applications, a sufficiently large ε is chosen in order to minimize the effect of noise and keep the value finite.
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;In the absence of noise, non-chaotic systems exhibit zero KS entropy while chaotic systems display positive values. For signals containing any amount of noise, KS entropy diverges to infinity as ε approaches zero. In practical applications, a sufficiently large ε is chosen in order to minimize the effect of noise and prevent the value from diverging.
 
 ## Python Script Overview
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;The python function 'marginal_redundancies_calculation' takes in a time series array with the specified parameters (max_dim, max_lag, bins) and outputs a plot with marginal redundancy on the y-axis and time lag on the x-axis. It plots a separate curve for each embedding dimension starting from $m=2$ up to 'max_dim' over the time lags $\tau=1$ to 'max_lag'. 
+
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;The python function 'mr_calculation' takes in a scalar time series array with the specified parameters (max_dim, max_lag, bins) and outputs a plot with time lag on the x-axis and marginal redundancy on the y-axis. It plots a separate curve for each embedding dimension starting from $m=2$ up to 'max_dim' over the time lags $\tau=1$ to 'max_lag'. 
 
 &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;An example is shown below for the Lorenz system using 1,000,000 data points. The parameters and time series generation function are included in example.py. The computation time is approximately 30 seconds on an Intel® Core™ i7-1255U at base clock speed.
 
 ![image](https://github.com/daniyal1249/MarginalRedundancy_Plot/assets/152569016/6d9053f0-a20c-4b85-b900-9d93b88b5c7a)
 
 ## Plot Inspection
+
 &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;In the marginal redundancy plot, the curves should converge to a straight line relation for sufficiently large embedding dimension:
 
 $$\Delta \mathcal{R}_ {m}(\tau) = c - K\tau$$
 
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;The negative of the slope of this asymptote line is the KS entropy of the system. 
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;The negative of the slope of this asymptote line approximates the KS entropy of the system. 
 
 ## Installation & Packages
 
