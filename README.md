@@ -14,11 +14,11 @@ $$H(X_t) = -\sum_{i=1}^{n} P(x_i) \log_2 P(x_i)$$
 
 ### Redundancy and Marginal Redundancy
 
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Consider a scalar time series $X_t$. Let $(X_{t}, X_{t+\tau}, ..., X_{t+(m-1)\tau})$ be the time delay embedding of $X_t$ in an $m$-dimensional state space with time lag $\tau$. The redundancy of this vectorized time series with respect to a partition $\xi$ is given by:
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Consider a scalar time series $X_t$. Let $(X_{t}, X_{t+\tau}, ..., X_{t+(m-1)\tau})$ be the time delay embedding of $X_t$ in an $m$-dimensional state space with time lag $\tau$. The redundancy $\mathcal{R}$ of this vectorized time series with respect to a partition $\xi$ is given by:
 
 $$\mathcal{R}_ {m}(\tau) = \mathcal{R}(X_{t}, X_{t+\tau}, ..., X_{t+(m-1)\tau}) = \left[\sum_{i=0}^{m-1} H(X_{t+i\tau})\right] - H(X_{t}, X_{t+\tau}, ..., X_{t+(m-1)\tau})$$
 
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Marginal redundancy $\Delta \mathcal{R}_ {m}$ is then defined as $\mathcal{R}_ {m} - \mathcal{R}_ {m-1}$ and represents the increase in redundancy as the embedding dimension increases from $m-1$ to $m$. It is important to note that $\mathcal{R}_ {1} = 0$, so the marginal redundancy at $m = 2$ equals $\mathcal{R}_ {2}$.
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Like mutual information, this quantity represents the average amount of information that is shared, or redundant, among the time series of interest. Marginal redundancy $\Delta \mathcal{R}_ {m}$ is then defined as $\mathcal{R}_ {m} - \mathcal{R}_ {m-1}$ and denotes the increase in redundancy as the embedding dimension increases from $m-1$ to $m$. It is important to note that $\mathcal{R}_ {1} = 0$, so the marginal redundancy at $m = 2$ equals $\mathcal{R}_ {2}$.
 
 ### Kolmogorov-Sinai Entropy
 
