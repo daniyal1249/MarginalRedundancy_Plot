@@ -4,7 +4,7 @@
 
 ## Terminology
 
-### Redundancy and Marginal Redundancy
+### Shannon Entropy
 
 &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Let $X_t$ be a vector time series. Assume a partition $\xi$ of the state space of $X_t$ into bins $\\{x_1, x_2, ..., x_n\\}$, where each $x_i$ represents a specific range of values $X_t$ can take. The Shannon entropy of $X_t$ over partition $\xi$ is given by:
 
@@ -12,9 +12,9 @@ $$H(X_t) = -\sum_{i=1}^{n} P(x_i) \log_2 P(x_i)$$
 
 &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;where $P(x_i)$ is the probability of the time series values falling into the bin $x_i$.
 
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Building on this concept, mutual information (MI) quantifies the average amount of information observing one time series gives about another. Higher values of MI indicate a stronger dependency between the two time series while lower values suggest a higher degree of independence. This notion can be extended to quantify shared information among any number of time series, often referred to as redundancy $\mathcal{R}$.
+### Redundancy and Marginal Redundancy
 
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;For this analysis, consider a scalar time series $X_t$. Let $(X_{t}, X_{t+\tau}, ..., X_{t+(m-1)\tau})$ be the time delay embedding of $X_t$ in an $m$-dimensional state space with time lag $\tau$. The redundancy of this vectorized time series with respect to a partition $\xi$ is given by:
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Consider a scalar time series $X_t$. Let $(X_{t}, X_{t+\tau}, ..., X_{t+(m-1)\tau})$ be the time delay embedding of $X_t$ in an $m$-dimensional state space with time lag $\tau$. The redundancy of this vectorized time series with respect to a partition $\xi$ is given by:
 
 $$\mathcal{R}_ {m}(\tau) = \mathcal{R}(X_{t}, X_{t+\tau}, ..., X_{t+(m-1)\tau}) = \left[\sum_{i=0}^{m-1} H(X_{t+i\tau})\right] - H(X_{t}, X_{t+\tau}, ..., X_{t+(m-1)\tau})$$
 
