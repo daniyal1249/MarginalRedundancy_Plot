@@ -4,7 +4,7 @@ import marginal_redundancy as mr
 
 def lorenz_time_series(N, dt, transients, noise_intensity, sigma=10, beta=8/3, rho=28):
     '''
-    Simulate the Lorenz system and output the time series for the x variable
+    Simulate the Lorenz system and output the time series for the x state variable
     Parameters:
         N - length of time series (after transient removal)
         dt - step size
@@ -43,7 +43,7 @@ def lorenz_time_series(N, dt, transients, noise_intensity, sigma=10, beta=8/3, r
     
     x_transients_removed = x[transients:]
 
-    # White gaussian noise is added to x time series
+    # White gaussian noise is added to the time series
     sd_x = np.std(x_transients_removed)
     noise = np.random.normal(0, noise_intensity * sd_x, N)
     x_transients_removed = x_transients_removed + noise
@@ -62,4 +62,4 @@ plt.grid(True)
 plt.show()
 
 # Plot marginal redundancy vs time lag
-mr.marginal_redundancies_calculation(time_series, max_dim=5, max_lag=50, bins=10)
+mr.mr_calculation(time_series, max_dim=5, max_lag=50, bins=10)
