@@ -12,7 +12,7 @@ $$H(X_t) = -\sum_{i=1}^{n} P(x_i) \log_2 P(x_i)$$
 
 &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;where $P(x_i)$ is the probability of the time series values falling into the bin $x_i$.
 
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Mutual information (MI) is a metric which quantifies the average amount of information observing one time series gives about another. Higher values of MI indicate a stronger dependency between the two time series while lower values suggest a higher degree of independence. This concept can be extended to quantify shared information among any number of time series, often referred to as redundancy $\mathcal{R}$.
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Building on this concept, mutual information (MI) quantifies the average amount of information observing one time series gives about another. Higher values of MI indicate a stronger dependency between the two time series while lower values suggest a higher degree of independence. This notion can be extended to quantify shared information among any number of time series, often referred to as redundancy $\mathcal{R}$.
 
 &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;For this analysis, consider a scalar time series $X_t$. Let $(X_{t}, X_{t+\tau}, ..., X_{t+(m-1)\tau})$ be the time delay embedding of $X_t$ in an $m$-dimensional state space with time lag $\tau$. The redundancy of this vectorized time series with respect to a partition $\xi$ is given by:
 
