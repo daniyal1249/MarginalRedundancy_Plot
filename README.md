@@ -14,7 +14,7 @@ $$H(X_t) = -\sum_{i=1}^{n} P(x_i) \log_2 P(x_i)$$
 
 ### Redundancy and Marginal Redundancy
 
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Consider a scalar time series $X_t$. Let $(X_{t}, X_{t+\tau}, ..., X_{t+(m-1)\tau})$ be the time delay embedding of $X_t$ in an $m$-dimensional state space with time lag $\tau$. The redundancy $\mathcal{R}$ of this vectorized time series with respect to a partition $\xi$ is given by:
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Consider a scalar time series $X_t$. Let $(X_{t}, X_{t+\tau}, ..., X_{t+(m-1)\tau})$ be the time delay embedding of $X_t$ in an $m$-dimensional state space with time lag $\tau$. The redundancy $\mathcal{R}$, also known as total correlation, of this vectorized time series with respect to a partition $\xi$ is given by:
 
 $$\mathcal{R}_ {m}(\tau) = \mathcal{R}(X_{t}, X_{t+\tau}, ..., X_{t+(m-1)\tau}) = \left[\sum_{i=0}^{m-1} H(X_{t+i\tau})\right] - H(X_{t}, X_{t+\tau}, ..., X_{t+(m-1)\tau})$$
 
