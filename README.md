@@ -89,7 +89,7 @@ The parameters and time series generation function are included in
 `example.py`. The computation time is approximately 30 seconds on an Intel® 
 Core™ i7-1255U at base clock speed.
 
-![Image](Example\lorenz_mr_plot.png)
+![Image](Example/lorenz_mr_plot.png)
 
 ## Plot Inspection
 
