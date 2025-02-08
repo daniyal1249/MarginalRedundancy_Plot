@@ -105,8 +105,8 @@ of the system.
 
 ## Installation & Packages
 
-- **Installation:** Download `marginal_redundancy.py` in your project directory 
-and import the file as a Python module using `import marginal_redundancy`.
+- **Installation:** Download `redundancy_analysis.py` in your project directory 
+and import the file as a Python module using `import redundancy_analysis`.
 
 - **Required Packages:** `numpy`, `matplotlib`
 
